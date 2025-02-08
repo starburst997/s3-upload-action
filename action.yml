@@ -34,13 +34,14 @@ inputs:
     default: 5
     required: false
 
+env:
+  AWS_ACCESS_KEY_ID: ${{ inputs.key-id }}
+  AWS_SECRET_ACCESS_KEY: ${{ inputs.secret-access-key }}
+  AWS_DEFAULT_REGION: ${{ inputs.region }}
+  AWS_ENDPOINT_URL: ${{ inputs.endpoint }}
+
 runs:
   using: "composite"
-  env:
-    AWS_ACCESS_KEY_ID: ${{ inputs.key-id }}
-    AWS_SECRET_ACCESS_KEY: ${{ inputs.secret-access-key }}
-    AWS_DEFAULT_REGION: ${{ inputs.region }}
-    AWS_ENDPOINT_URL: ${{ inputs.endpoint }}
   steps:
     - name: Display message
       run: echo "S3 Upload Action..."
