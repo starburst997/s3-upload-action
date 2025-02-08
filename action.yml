@@ -34,23 +34,25 @@ inputs:
     default: 5
     required: false
 
-env:
-  AWS_ACCESS_KEY_ID: ${{ inputs.key-id }}
-  AWS_SECRET_ACCESS_KEY: ${{ inputs.secret-access-key }}
-  AWS_DEFAULT_REGION: ${{ inputs.region }}
-  AWS_ENDPOINT_URL: ${{ inputs.endpoint }}
-
 runs:
   using: "composite"
   steps:
     - name: Display message
       run: echo "S3 Upload Action..."
       
+    - name: Set envs
+      run: |
+        echo "AWS_ACCESS_KEY_ID=${{ inputs.key-id }}" >> $GITHUB_ENV
+        echo "AWS_SECRET_ACCESS_KEY=${{ inputs.secret-access-key }}" >> $GITHUB_ENV
+        echo "AWS_DEFAULT_REGION=${{ inputs.region }}" >> $GITHUB_ENV
+        echo "AWS_ENDPOINT_URL=${{ inputs.endpoint }}" >> $GITHUB_ENV
+
     - name: Upload to S3
       run: |
         aws s3 cp ${{ inputs.src-dir }} s3://${{ inputs.bucket }}/${{ inputs.dst-dir }}/${{ inputs.dst-version }}/ --recursive
 
     - name: Delete older folders
+      if: ${{ inputs.dst-dir != '' }}
       run: |
         aws s3 ls s3://${{ inputs.bucket }}/${{ inputs.dst-dir }}/ | awk '{print $2}' > ls.txt
         sort -r -V ls.txt > ls-sort.txt
