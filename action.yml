@@ -1,0 +1,58 @@
+name: 'S3 Upload Action'
+description: 'Simple upload to S3 with rotating version folders'
+author: 'Jean-Denis Boivin'
+
+inputs:
+  key-id:
+    description: 'Your S3 Key ID'
+    required: true
+  secret-access-key:
+    description: 'Your S3 Secret Access Key'
+    required: true
+  bucket:
+    description: 'Your S3 Bucket'
+    required: true
+  region:
+    description: 'S3 Region'
+    default: 'us-east-1'
+    required: false
+  endpoint:
+    description: 'Needed if you use a clone (ex; DigitalOcean Space)'
+    required: false
+
+  src-dir:
+    description: 'Source directory to upload'
+    required: true
+  dst-dir:
+    description: 'Destination in S3'
+    required: true
+  dst-version:
+    description: 'Name of your folder using version convention'
+    required: true
+  keep:
+    description: 'Number of release to keeps'
+    default: 5
+    required: false
+
+runs:
+  using: "composite"
+  steps:
+    - name: Display message
+      run: echo "S3 Upload Action..."
+      
+    - name: Upload to S3
+      run: |
+        aws s3 cp ${{ inputs.src-dir }} s3://${{ inputs.bucket }}/${{ inputs.dst-dir }}/${{ inputs.dst-version }}/ --recursive
+
+    - name: Delete older folders
+      run: |
+        aws s3 ls s3://${{ inputs.bucket }}/${{ inputs.dst-dir }}/ | awk '{print $2}' > ls.txt
+        sort -r -V ls.txt > ls-sort.txt
+        tail -n +$((${{ inputs.keep }} + 1)) ls-sort.txt > ls-delete.txt
+        while read p; do
+          echo "Deleting: $p"
+          echo "aws s3 rm --recursive s3://${{ inputs.bucket }}/${{ inputs.dst-dir }}/$p/"
+        done <ls-delete.txt
+        rm ls.txt
+        rm ls-sort.txt
+        rm ls-delete.txt
