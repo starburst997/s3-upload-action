@@ -63,7 +63,7 @@ runs:
         tail -n +$((${{ inputs.keep }} + 1)) ls-sort.txt > ls-delete.txt
         while read p; do
           echo "Deleting: $p"
-          echo "aws s3 rm --recursive s3://${{ inputs.bucket }}/${{ inputs.dst-dir }}/$p/"
+          aws s3 rm --recursive s3://${{ inputs.bucket }}/${{ inputs.dst-dir }}/$p
         done <ls-delete.txt
         rm ls.txt
         rm ls-sort.txt
