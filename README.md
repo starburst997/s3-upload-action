@@ -1,7 +1,7 @@
 # s3-upload-action
 Simple upload to S3 with rotating version folders
 
-This was made for a simple use-case. Let's say you upload the content of a folder somewhere in S3 which are named after a version (ex; 2025.12.145) and you want to keep only the latest 5 releases.
+This was made for a simple use-case. Let's say you upload the content of a folder somewhere in S3 which are named after a version (ex; `2025.12.145`) and you want to keep only the latest 5 releases.
 
 **Works only on linux runner** (maybe macos as well).
 
