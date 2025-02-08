@@ -38,9 +38,11 @@ runs:
   using: "composite"
   steps:
     - name: Display message
+      shell: bash
       run: echo "S3 Upload Action..."
       
     - name: Set envs
+      shell: bash
       run: |
         echo "AWS_ACCESS_KEY_ID=${{ inputs.key-id }}" >> $GITHUB_ENV
         echo "AWS_SECRET_ACCESS_KEY=${{ inputs.secret-access-key }}" >> $GITHUB_ENV
@@ -48,11 +50,13 @@ runs:
         echo "AWS_ENDPOINT_URL=${{ inputs.endpoint }}" >> $GITHUB_ENV
 
     - name: Upload to S3
+      shell: bash
       run: |
         aws s3 cp ${{ inputs.src-dir }} s3://${{ inputs.bucket }}/${{ inputs.dst-dir }}/${{ inputs.dst-version }}/ --recursive
 
     - name: Delete older folders
       if: ${{ inputs.dst-dir != '' }}
+      shell: bash
       run: |
         aws s3 ls s3://${{ inputs.bucket }}/${{ inputs.dst-dir }}/ | awk '{print $2}' > ls.txt
         sort -r -V ls.txt > ls-sort.txt
