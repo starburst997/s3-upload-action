@@ -42,6 +42,9 @@ jobs:
           brotli build/c.js
           brotli build/c.data
           brotli build/c.wasm
+          rm -f build/c.js
+          rm -f build/c.data
+          rm -f build/c.wasm
           ls build -la
 
       - name: Upload to S3 but keep the latest 5 only
