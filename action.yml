@@ -50,7 +50,9 @@ runs:
         echo "AWS_ENDPOINT_URL=${{ inputs.endpoint }}" >> $GITHUB_ENV
 
     - name: Fix errors on windows
-      run: aws configure set default.s3.signature_version s3v4
+      shell: bash
+      run: |
+        aws configure set default.s3.signature_version s3v4
 
     - name: Upload to S3
       shell: bash
