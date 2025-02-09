@@ -40,7 +40,7 @@ runs:
     - name: Display message
       shell: bash
       run: echo "S3 Upload Action..."
-      
+
     - name: Set envs
       shell: bash
       run: |
@@ -48,6 +48,15 @@ runs:
         echo "AWS_SECRET_ACCESS_KEY=${{ inputs.secret-access-key }}" >> $GITHUB_ENV
         echo "AWS_DEFAULT_REGION=${{ inputs.region }}" >> $GITHUB_ENV
         echo "AWS_ENDPOINT_URL=${{ inputs.endpoint }}" >> $GITHUB_ENV
+
+    # Force specific version of aws cli since v2 add "aws-chunked" to content-encoding...
+    - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+          cache: 'pip'
+      - run: |
+          pip install --force-reinstall -v "awscli==1.37.15"
+          aws --version
 
     - name: Upload to S3 (non .br)
       shell: bash
