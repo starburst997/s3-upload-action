@@ -4,6 +4,8 @@ on:
   workflow_dispatch:
 
 jobs:
+  # This requires that you add `GH_PAT` to the secrets of your repository
+  # Which is a Personal Access Token (PAT) for Github with all repo access
   version:
     uses: starburst997/yearly-version/.github/workflows/version.yml@v1
     secrets: inherit
