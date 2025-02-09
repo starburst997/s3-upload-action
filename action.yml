@@ -60,6 +60,11 @@ runs:
         pip install --force-reinstall -v "awscli==1.37.15"
         aws --version
 
+    - name: Verify aws cli version
+      shell: bash
+      run: |
+        aws --version
+
     - name: Upload to S3 (non .br)
       shell: bash
       run: |
