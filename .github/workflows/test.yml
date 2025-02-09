@@ -13,7 +13,7 @@ jobs:
 
   test:
     name: Test
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
     needs: [version]
     steps:
       - uses: actions/checkout@v4
@@ -28,6 +28,9 @@ jobs:
           echo "1871236468723648234" >> build/b.txt
           echo "sohjfiosdhgfoisdhfgos" >> build/c.txt
           echo "lolololololol" >> build/test/d.txt
+          echo ".br.br.br.br.br.b.rb.rb" >> build/c.js.br
+          echo "01010101010101011010010" >> build/c.data.br
+          echo ".br.br.wasm.wasm.wasm.br.br.b.rb" >> build/c.wasm.br
 
       - name: Upload to S3 but keep the latest 5 only
         uses: starburst997/s3-upload-action@v1
