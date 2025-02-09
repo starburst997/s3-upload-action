@@ -5,7 +5,7 @@ This was made for a simple use-case. Let's say you upload the content of a folde
 
 **Works only on linux runner** (maybe macos as well).
 
-Support brotli encoding. All files will be public and cached.
+Support brotli encoding. All files will be public and cached. And no `aws-chunked` in your `content-encoding`...
 
 ## Secrets:
 
