@@ -42,6 +42,7 @@ jobs:
           brotli build/c.js
           brotli build/c.data
           brotli build/c.wasm
+          ls build -la
 
       - name: Upload to S3 but keep the latest 5 only
         uses: starburst997/s3-upload-action@v1
