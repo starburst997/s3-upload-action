@@ -30,9 +30,18 @@ jobs:
           echo "1871236468723648234" >> build/b.txt
           echo "sohjfiosdhgfoisdhfgos" >> build/c.txt
           echo "lolololololol" >> build/test/d.txt
-          echo ".br.br.br.br.br.b.rb.rb" >> build/c.js.br
-          echo "01010101010101011010010" >> build/c.data.br
-          echo ".br.br.wasm.wasm.wasm.br.br.b.rb" >> build/c.wasm.br
+          echo ".br.br.br.br.br.b.rb.rb" >> build/c.js
+          echo "01010101010101011010010" >> build/c.data
+          echo ".br.br.wasm.wasm.wasm.br.br.b.rb" >> build/c.wasm
+
+      - name: Install brotli
+        uses: starburst997/action-br@v1
+
+      - name: Convert to brotli
+        run: |
+          brotli build/c.js
+          brotli build/c.data
+          brotli build/c.wasm
 
       - name: Upload to S3 but keep the latest 5 only
         uses: starburst997/s3-upload-action@v1
