@@ -51,9 +51,9 @@ runs:
 
     # Force specific version of aws cli since v2 add "aws-chunked" to content-encoding...
     - uses: actions/setup-python@v5
-        with:
-          python-version: '3.13'
-          cache: 'pip'
+      with:
+        python-version: '3.13'
+        cache: 'pip'
     - run: |
         pip install --force-reinstall -v "awscli==1.37.15"
         aws --version
