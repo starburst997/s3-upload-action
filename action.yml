@@ -61,12 +61,7 @@ runs:
     - name: Upload to S3 (.br)
       shell: bash
       run: |
-        for file in ${{ inputs.src-dir }}/*.br
-        do
-          brotli -d -f $file || continue
-          aws s3 cp $file s3://${{ inputs.bucket }}/${{ inputs.dst-dir }}/${{ inputs.dst-version }}/${file##${{ inputs.src-dir }}/} --acl public-read --cache-control 'max-age=31536000, immutable' --content-encoding 'br' --metadata '{"Decompressed":"'$(stat -c %s ${file%*.br})'"}' || continue
-        done
-        for file in ${{ inputs.src-dir }}/**/*.br
+        for file in $(find ${{ inputs.src-dir }} -name '*.br');
         do
           brotli -d -f $file || continue
           aws s3 cp $file s3://${{ inputs.bucket }}/${{ inputs.dst-dir }}/${{ inputs.dst-version }}/${file##${{ inputs.src-dir }}/} --acl public-read --cache-control 'max-age=31536000, immutable' --content-encoding 'br' --metadata '{"Decompressed":"'$(stat -c %s ${file%*.br})'"}' || continue
