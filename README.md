@@ -5,7 +5,7 @@ This was made for a simple use-case. Let's say you upload the content of a folde
 
 **Works only on linux runner** (maybe macos as well).
 
-Will also use the correct encoding / metadata for some files (ex; `.br`, `.wasm.br`)
+Support brotli encoding. All files will be public and cached.
 
 ## Secrets:
 
