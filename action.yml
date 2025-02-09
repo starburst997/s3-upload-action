@@ -54,7 +54,9 @@ runs:
       with:
         python-version: '3.13'
         cache: 'pip'
-    - run: |
+    - name: Install aws cli v1
+      shell: bash
+      run: |
         pip install --force-reinstall -v "awscli==1.37.15"
         aws --version
 
