@@ -21,7 +21,7 @@ TODO: How to get access key in AWS... Simple guide.
     endpoint: ${{ secrets.S3_ENDPOINT }}
     bucket: ${{ secrets.S3_BUCKET }}
 
-    src-dir: 'my/folder'
+    src-dir: 'my/folder/to/upload'
     dst-dir: 'apps/test/internal/windows'
     dst-version: '2025.1.12'
     keep: 5
