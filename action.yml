@@ -52,7 +52,7 @@ runs:
     - name: Upload to S3
       shell: bash
       run: |
-        aws s3 cp ${{ inputs.src-dir }} s3://${{ inputs.bucket }}/${{ inputs.dst-dir }}/${{ inputs.dst-version }}/ --recursive
+        aws s3 cp ${{ inputs.src-dir }} s3://${{ inputs.bucket }}/${{ inputs.dst-dir }}/${{ inputs.dst-version }}/ --recursive --acl public-read
 
     - name: Delete older folders
       if: ${{ inputs.dst-dir != '' }}
