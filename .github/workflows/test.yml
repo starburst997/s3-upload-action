@@ -60,3 +60,4 @@ jobs:
           dst-dir: 'apps/test/internal'
           dst-version: '${{ needs.version.outputs.version }}'
           keep: 5
+          sha: true
