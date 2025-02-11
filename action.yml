@@ -77,9 +77,9 @@ runs:
       if: ${{ inputs.sha }}
       shell: bash
       run: |
-        echo "${{ github.sha }}" >> sha
-        aws s3 cp ./sha s3://${{ inputs.bucket }}/${{ inputs.dst-dir }}/${{ inputs.dst-version }}/SHA --acl public-read --cache-control 'max-age=31536000, immutable'
-        rm sha
+        echo -n "${{ github.sha }}" >> SHA
+        aws s3 cp ./SHA s3://${{ inputs.bucket }}/${{ inputs.dst-dir }}/${{ inputs.dst-version }}/SHA --acl public-read --cache-control 'max-age=31536000, immutable'
+        rm SHA
 
     - name: Install brotli
       uses: starburst997/action-br@v1
